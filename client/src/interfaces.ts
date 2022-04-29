@@ -13,7 +13,7 @@ export interface NamedAPIResource {
   url: string;
 }
 
-export interface Pokemon {
+export interface PokemonGeneral {
   id: number;
   name: string;
   sprites: {
@@ -23,4 +23,13 @@ export interface Pokemon {
       };
     };
   };
+  species: NamedAPIResource;
+}
+
+export interface PokemonSpecies {
+  names: Name[];
+}
+
+export interface Name {
+  name: string;
 }

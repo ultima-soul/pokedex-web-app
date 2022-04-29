@@ -1,3 +1,5 @@
+import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
 import { PokedexEntry } from '../interfaces';
 
 interface Props {
@@ -6,11 +8,15 @@ interface Props {
 
 const DexEntry = ({ entry }: Props) => {
   return (
-    <>
-      <img src={entry.image} />
-      <div>{entry.dexNum}</div>
-      <div>{entry.name}</div>
-    </>
+    <Col>
+      <Card>
+        <Card.Header className="d-flex ps-2">
+          <h6 className="pe-1">#{entry.dexNum.toString().padStart(3, '0')}</h6>
+          <h6 className="ps-4">{entry.name}</h6>
+        </Card.Header>
+        <Card.Img src={entry.image} />
+      </Card>
+    </Col>
   );
 };
 
