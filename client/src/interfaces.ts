@@ -6,6 +6,7 @@ export interface PokedexEntry {
   dexNum: number;
   name: string;
   image: string;
+  caught: boolean;
 }
 
 export interface NamedAPIResource {

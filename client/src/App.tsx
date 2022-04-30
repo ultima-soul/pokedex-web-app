@@ -45,6 +45,7 @@ const App = () => {
             dexNum: monData.id,
             name: await getMonName(monData),
             image: await getMonBase64Image(monData),
+            caught: false,
           };
 
           return entry;
