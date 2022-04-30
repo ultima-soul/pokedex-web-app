@@ -15,7 +15,7 @@ const DexEntries = ({ pokedex }: Props) => {
     <section className="py-4">
       <Container>
         <CardGroup>
-          <Row xs={1} sm={2} md={4} className="g-4">
+          <Row xs={2} md={4} xl={6} className="g-4">
             {entries.map((entry: PokedexEntry) => {
               return <DexEntry key={entry.dexNum} entry={entry} />;
             })}

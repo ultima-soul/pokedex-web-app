@@ -12,9 +12,11 @@ const DexEntry = ({ entry }: Props) => {
     <Col>
       <Card className={`entry-card ${!entry.caught && 'opacity-50'}`}>
         <Card.Header className="ps-2">
-          <Row>
+          <Row className="flex-nowrap">
             <Col xs="4">
-              <h6>#{entry.dexNum.toString().padStart(3, '0')}</h6>
+              <h6 className="text-nowrap">
+                #{entry.dexNum.toString().padStart(3, '0')}
+              </h6>
             </Col>
             <Col className="ps-1">
               <h6>{entry.name}</h6>
