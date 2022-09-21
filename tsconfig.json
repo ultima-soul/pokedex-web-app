@@ -19,10 +19,10 @@
     "jsx": "react-jsx",
     "outDir": "build",
   },
+  "include": [
+    "server"
+  ],
   "ts-node": {
     "esm": true
   },
-  "include": [
-    "server"
-  ]
 }
