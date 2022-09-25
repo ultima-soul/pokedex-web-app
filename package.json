@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node build/server.js",
-    "server": "nodemon server/server.ts",
+    "server": "nodemon --files server/server.ts",
     "build": "tsc"
   },
   "author": "Akshay Jhanji",
