@@ -1,7 +1,7 @@
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import BootstrapIcons from 'bootstrap-icons/bootstrap-icons.svg';
 import AuthenticationButtons from './AuthenticationButtons';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import NavItem from './NavItem';
 
 const Header = () => {
@@ -11,7 +11,7 @@ const Header = () => {
   return (
     <Navbar bg="dark" variant="dark">
       <Container>
-        <Navbar.Brand href="#home">
+        <Navbar.Brand as={Link} to="/">
           <svg
             className="bi d-inline-block align-top me-2"
             width="30"

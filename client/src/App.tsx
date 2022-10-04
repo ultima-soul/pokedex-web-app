@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
+import ProtectedPage from './components/ProtectedPage';
 
 const App = () => {
   const { isLoading } = useAuth0();
@@ -16,7 +17,7 @@ const App = () => {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={<ProtectedPage page={Dashboard} />} />
       </Routes>
     </>
   );
