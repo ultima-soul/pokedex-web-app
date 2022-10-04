@@ -1,8 +1,12 @@
-import { Button, Container, Navbar } from 'react-bootstrap';
+import { Container, Nav, Navbar } from 'react-bootstrap';
 import BootstrapIcons from 'bootstrap-icons/bootstrap-icons.svg';
+import AuthenticationButtons from './AuthenticationButtons';
+import { useLocation } from 'react-router-dom';
+import NavItem from './NavItem';
 
 const Header = () => {
   const JournalAlbum: string = `${BootstrapIcons}#journal-album`;
+  const { pathname }: { pathname: string } = useLocation();
 
   return (
     <Navbar bg="dark" variant="dark">
@@ -19,11 +23,13 @@ const Header = () => {
           Pokédex
         </Navbar.Brand>
 
+        <Nav>
+          <NavItem text="Home" to="/" currPage={pathname} />
+          <NavItem text="Dashboard" to="/dashboard" currPage={pathname} />
+        </Nav>
+
         <Container className="text-end">
-          <Button variant="outline-light" className="me-2">
-            Login
-          </Button>
-          <Button variant="warning">Sign-up</Button>
+          <AuthenticationButtons />
         </Container>
       </Container>
     </Navbar>

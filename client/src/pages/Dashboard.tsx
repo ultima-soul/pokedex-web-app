@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Container } from 'react-bootstrap';
 import DexEntries from '../components/DexEntries';
 import {
   NamedAPIResource,
@@ -90,9 +91,9 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="App">
+    <Container>
       <DexEntries pokedex={pokedex} />
-    </div>
+    </Container>
   );
 };
 
