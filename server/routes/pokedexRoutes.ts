@@ -5,10 +5,15 @@ import {
   initPokedex,
   updatePokedex,
 } from '../controllers/pokedexController.js';
+import checkJwt from '../middleware/checkJwt.js';
 
 const router: Router = Router();
 
-router.route('/').get(getPokedex).post(initPokedex);
-router.route('/:id').put(updatePokedex).delete(deletePokedex);
+router
+  .route('/')
+  .get(checkJwt, getPokedex)
+  .post(checkJwt, initPokedex)
+  .put(checkJwt, updatePokedex)
+  .delete(checkJwt, deletePokedex);
 
 export default router;

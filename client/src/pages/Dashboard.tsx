@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import DexEntries from '../components/DexEntries';
@@ -11,6 +12,8 @@ import {
 
 const Dashboard = () => {
   const [pokedex, setPokedex] = useState<Pokedex>({ entries: [] });
+  const serverUrl: string = process.env.REACT_APP_SERVER_URL;
+  const { getAccessTokenSilently } = useAuth0();
 
   const getMonBase64Image = (monData: PokemonGeneral): Promise<string> => {
     return new Promise<string>(async (resolve, reject) => {
@@ -36,6 +39,17 @@ const Dashboard = () => {
     const expiry = curr.setMonth(curr.getMonth() + 1);
 
     return expiry.toString();
+  };
+
+  const getCaughtMons = async (): Promise<number[]> => {
+    const token: string = await getAccessTokenSilently();
+
+    const res = await fetch(`${serverUrl}/api/pokedex/`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const data = await res.json();
+
+    return data.caughtMons;
   };
 
   useEffect(() => {
@@ -83,6 +97,14 @@ const Dashboard = () => {
           }
         )
       );
+
+      const caughtMons: number[] = await getCaughtMons();
+
+      dexEntries.forEach((entry: PokedexEntry) => {
+        if (caughtMons.includes(entry.dexNum)) {
+          entry.caught = true;
+        }
+      });
 
       setPokedex({ entries: dexEntries });
     };
