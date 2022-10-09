@@ -5,12 +5,16 @@ import { PokedexEntry } from '../interfaces';
 
 interface Props {
   entry: PokedexEntry;
+  onToggle: (dexNum: number) => Promise<void>;
 }
 
-const DexEntry = ({ entry }: Props) => {
+const DexEntry = ({ entry, onToggle }: Props) => {
   return (
     <Col>
-      <Card className={`entry-card ${!entry.caught && 'opacity-50'}`}>
+      <Card
+        className={`entry-card ${!entry.caught && 'opacity-50'}`}
+        onDoubleClick={() => onToggle(entry.dexNum)}
+      >
         <Card.Header className="ps-2">
           <Row className="flex-nowrap">
             <Col xs="4">

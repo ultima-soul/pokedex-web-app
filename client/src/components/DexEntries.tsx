@@ -6,9 +6,10 @@ import DexEntry from './DexEntry';
 
 interface Props {
   pokedex: Pokedex;
+  onToggle: (dexNum: number) => Promise<void>;
 }
 
-const DexEntries = ({ pokedex }: Props) => {
+const DexEntries = ({ pokedex, onToggle }: Props) => {
   const { entries }: { entries: PokedexEntry[] } = pokedex;
 
   return (
@@ -17,7 +18,13 @@ const DexEntries = ({ pokedex }: Props) => {
         <CardGroup>
           <Row xs={2} md={4} xl={6} className="g-4">
             {entries.map((entry: PokedexEntry) => {
-              return <DexEntry key={entry.dexNum} entry={entry} />;
+              return (
+                <DexEntry
+                  key={entry.dexNum}
+                  entry={entry}
+                  onToggle={onToggle}
+                />
+              );
             })}
           </Row>
         </CardGroup>

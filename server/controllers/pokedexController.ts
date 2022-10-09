@@ -36,20 +36,24 @@ const initPokedex = asyncHandler(async (req: Request, res: Response) => {
   res.status(200).json(pokedex);
 });
 
-// PUT /api/pokedex/:id
+// PUT /api/pokedex
 const updatePokedex = asyncHandler(async (req: Request, res: Response) => {
-  const pokedex = await Pokedex.findById(req.params.id);
+  if (!req.auth?.payload.sub) {
+    throw new Error('No valid user ID provided.');
+  }
+
+  const userId: string = req.auth.payload.sub;
+
+  const pokedex = await Pokedex.findById(userId);
 
   if (!pokedex) {
     res.status(400);
-    throw new Error(`Pokedex for user ${req.params.id} not found`);
+    throw new Error(`Pokedex for user ${userId} not found`);
   }
 
-  const updatedPokedex = await Pokedex.findByIdAndUpdate(
-    req.params.id,
-    req.body,
-    { new: true }
-  );
+  const updatedPokedex = await Pokedex.findByIdAndUpdate(userId, req.body, {
+    new: true,
+  });
 
   res.status(200).json(updatedPokedex);
 });

@@ -52,6 +52,41 @@ const Dashboard = () => {
     return data.caughtMons;
   };
 
+  const toggleCaught = async (dexNum: number) => {
+    const caughtMons: number[] = await getCaughtMons();
+    let updatedCaughtMons: number[];
+
+    if (caughtMons.includes(dexNum)) {
+      updatedCaughtMons = caughtMons.filter(
+        (monNum: number) => monNum !== dexNum
+      );
+    } else {
+      updatedCaughtMons = [...caughtMons, dexNum];
+    }
+
+    const token: string = await getAccessTokenSilently();
+
+    const res = await fetch(`${serverUrl}/api/pokedex/`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ caughtMons: updatedCaughtMons }),
+    });
+    const data = await res.json();
+    const resCaughtMons: number[] = data.caughtMons;
+
+    const updatedEntries: PokedexEntry[] = pokedex.entries.map(
+      (entry: PokedexEntry) =>
+        entry.dexNum === dexNum
+          ? { ...entry, caught: resCaughtMons.includes(entry.dexNum) }
+          : entry
+    );
+
+    setPokedex({ entries: updatedEntries });
+  };
+
   useEffect(() => {
     const fetchDexEntries = async () => {
       const pokeApiRes: NamedAPIResource[] = await (async () => {
@@ -100,13 +135,12 @@ const Dashboard = () => {
 
       const caughtMons: number[] = await getCaughtMons();
 
-      dexEntries.forEach((entry: PokedexEntry) => {
-        if (caughtMons.includes(entry.dexNum)) {
-          entry.caught = true;
-        }
-      });
+      const updatedEntries: PokedexEntry[] = dexEntries.map(
+        (entry: PokedexEntry) =>
+          caughtMons.includes(entry.dexNum) ? { ...entry, caught: true } : entry
+      );
 
-      setPokedex({ entries: dexEntries });
+      setPokedex({ entries: updatedEntries });
     };
 
     fetchDexEntries();
@@ -114,7 +148,7 @@ const Dashboard = () => {
 
   return (
     <Container>
-      <DexEntries pokedex={pokedex} />
+      <DexEntries pokedex={pokedex} onToggle={toggleCaught} />
     </Container>
   );
 };
