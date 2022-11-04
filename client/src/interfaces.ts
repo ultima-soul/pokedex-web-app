@@ -14,6 +14,11 @@ export interface NamedAPIResource {
   url: string;
 }
 
+export interface PokeAPIDexEntry {
+  entry_number: number;
+  pokemon_species: NamedAPIResource;
+}
+
 export interface PokemonGeneral {
   id: number;
   name: string;
