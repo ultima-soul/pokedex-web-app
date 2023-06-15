@@ -67,7 +67,7 @@ const deletePokedex = asyncHandler(async (req: Request, res: Response) => {
     throw new Error(`Pokedex for user ${req.params.id} not found`);
   }
 
-  await pokedex.remove();
+  await pokedex.deleteOne();
 
   res.status(200).json({ id: req.params.id });
 });
