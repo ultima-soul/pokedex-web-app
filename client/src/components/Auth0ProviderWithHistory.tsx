@@ -20,9 +20,11 @@ const Auth0ProviderWithHistory = ({ children }: Props) => {
     <Auth0Provider
       domain={domain}
       clientId={clientId}
-      redirectUri={window.location.origin}
+      authorizationParams={{
+        redirect_uri: window.location.origin,
+        audience: audience,
+      }}
       onRedirectCallback={onRedirectCallback}
-      audience={audience}
     >
       {children}
     </Auth0Provider>

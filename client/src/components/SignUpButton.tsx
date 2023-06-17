@@ -6,7 +6,13 @@ const SignUpButton = () => {
   return (
     <Button
       variant="warning"
-      onClick={() => loginWithRedirect({ screen_hint: 'signup' })}
+      onClick={() =>
+        loginWithRedirect({
+          authorizationParams: {
+            screen_hint: 'signup',
+          },
+        })
+      }
     >
       Sign Up
     </Button>
