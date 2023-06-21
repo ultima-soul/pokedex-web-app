@@ -1,17 +1,17 @@
-import { Container, Nav, Navbar } from 'react-bootstrap';
+import { Container, Nav, NavDropdown, Navbar } from 'react-bootstrap';
 import BootstrapIcons from 'bootstrap-icons/bootstrap-icons.svg';
 import AuthenticationButtons from './AuthenticationButtons';
-import { Link, useLocation } from 'react-router-dom';
-import NavItem from './NavItem';
+import { Link, NavLink } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const Header = () => {
+  const { isAuthenticated } = useAuth0();
   const JournalAlbum: string = `${BootstrapIcons}#journal-album`;
-  const { pathname }: { pathname: string } = useLocation();
 
   return (
-    <Navbar bg="dark" variant="dark">
+    <Navbar bg="dark" data-bs-theme="dark">
       <Container>
-        <Navbar.Brand as={Link} to="/">
+        <Navbar.Brand as={Link} to={isAuthenticated ? '/dashboard' : '/'}>
           <svg
             className="bi d-inline-block align-top me-2"
             width="30"
@@ -24,8 +24,34 @@ const Header = () => {
         </Navbar.Brand>
 
         <Nav>
-          <NavItem text="Home" to="/" currPage={pathname} />
-          <NavItem text="Dashboard" to="/dashboard" currPage={pathname} />
+          {isAuthenticated ? (
+            <>
+              <Nav.Link as={NavLink} to="/dashboard">
+                Dashboard
+              </Nav.Link>
+              <NavDropdown title="Dexes" menuVariant="dark">
+                <NavDropdown.Item as={NavLink} to="/national-dex">
+                  National
+                </NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to="/kanto-dex">
+                  Kanto
+                </NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to="/johto-dex">
+                  Johto
+                </NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to="/hoenn-dex">
+                  Hoenn
+                </NavDropdown.Item>
+                <NavDropdown.Item as={NavLink} to="/sinnoh-dex">
+                  Sinnoh
+                </NavDropdown.Item>
+              </NavDropdown>
+            </>
+          ) : (
+            <Nav.Link as={NavLink} to="/">
+              Home
+            </Nav.Link>
+          )}
         </Nav>
 
         <Container className="text-end">

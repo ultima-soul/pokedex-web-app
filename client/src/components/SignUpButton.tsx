@@ -11,6 +11,9 @@ const SignUpButton = () => {
           authorizationParams: {
             screen_hint: 'signup',
           },
+          appState: {
+            returnTo: '/dashboard',
+          },
         })
       }
     >

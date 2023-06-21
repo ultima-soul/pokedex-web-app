@@ -82,8 +82,6 @@ const DexProgressCard = ({ dexName, region, caughtMons, path }: Props) => {
         <Card.Title>
           {dexName}
           {progress === 100 && (
-            // ' '
-            // +
             <i
               className="bi bi-trophy-fill ms-2"
               style={{ color: 'var(--bs-red)' }}

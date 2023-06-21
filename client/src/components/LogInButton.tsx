@@ -8,7 +8,13 @@ const LogInButton = () => {
     <Button
       variant="outline-light"
       className="me-2"
-      onClick={() => loginWithRedirect()}
+      onClick={() =>
+        loginWithRedirect({
+          appState: {
+            returnTo: '/dashboard',
+          },
+        })
+      }
     >
       Log In
     </Button>
