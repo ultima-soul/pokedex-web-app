@@ -1,13 +1,20 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { Button } from 'react-bootstrap';
 
-const LogInButton = () => {
+interface Props {
+  className?: string;
+  variant?: string;
+  size?: 'sm' | 'lg';
+}
+
+const LogInButton = ({ className, variant, size }: Props) => {
   const { loginWithRedirect } = useAuth0();
 
   return (
     <Button
-      variant="outline-light"
-      className="me-2"
+      variant={variant ?? 'outline-light'}
+      className={className ?? 'me-2'}
+      size={size}
       onClick={() =>
         loginWithRedirect({
           appState: {
