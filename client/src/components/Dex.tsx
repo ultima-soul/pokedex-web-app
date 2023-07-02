@@ -1,5 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import DexEntries from '../components/DexEntries';
 import {
   NamedAPIResource,
@@ -9,6 +9,7 @@ import {
   PokemonGeneral,
   PokemonSpecies,
 } from '../interfaces';
+import { Col, Container, Form, Row } from 'react-bootstrap';
 
 interface Props {
   region: string;
@@ -16,8 +17,15 @@ interface Props {
 
 const Dex = ({ region }: Props) => {
   const [pokedex, setPokedex] = useState<Pokedex>({ entries: [] });
+  const [showNationalNum, setShowNationalNum] = useState<boolean>(false);
   const serverUrl: string = process.env.REACT_APP_SERVER_URL;
   const { getAccessTokenSilently } = useAuth0();
+
+  const toggleShowNationalNum = (
+    event: ChangeEvent<HTMLInputElement>
+  ): void => {
+    setShowNationalNum(event.target.checked);
+  };
 
   const getCaughtMons = async (
     serverUrl: string,
@@ -135,7 +143,34 @@ const Dex = ({ region }: Props) => {
     fetchDexEntries();
   }, [getAccessTokenSilently, serverUrl, region]);
 
-  return <DexEntries pokedex={pokedex} onToggle={toggleCaught} />;
+  return (
+    <Container className="py-3">
+      {region !== 'national' && (
+        <Row className="mb-3">
+          <Col>
+            <Form.Switch reverse={true}>
+              <Form.Switch.Input
+                style={{ width: '3em' }}
+                onChange={toggleShowNationalNum}
+              />
+              <Form.Switch.Label className="me-2">
+                Show National Dex No.
+              </Form.Switch.Label>
+            </Form.Switch>
+          </Col>
+        </Row>
+      )}
+      <Row className="mb-3">
+        <Col>
+          <DexEntries
+            pokedex={pokedex}
+            showNationalNum={showNationalNum}
+            onToggle={toggleCaught}
+          />
+        </Col>
+      </Row>
+    </Container>
+  );
 };
 
 export default Dex;

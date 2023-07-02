@@ -1,12 +1,7 @@
-import { Container } from 'react-bootstrap';
 import Dex from '../components/Dex';
 
 const HoennDex = () => {
-  return (
-    <Container>
-      <Dex region="hoenn" />
-    </Container>
-  );
+  return <Dex region="hoenn" />;
 };
 
 export default HoennDex;

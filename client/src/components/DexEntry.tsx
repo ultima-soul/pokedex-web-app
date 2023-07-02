@@ -5,10 +5,11 @@ import { PokedexEntry } from '../interfaces';
 
 interface Props {
   entry: PokedexEntry;
+  regionalNum?: number;
   onToggle: (dexNum: number) => Promise<void>;
 }
 
-const DexEntry = ({ entry, onToggle }: Props) => {
+const DexEntry = ({ entry, regionalNum, onToggle }: Props) => {
   return (
     <Col>
       <Card
@@ -19,7 +20,9 @@ const DexEntry = ({ entry, onToggle }: Props) => {
           <Row className="flex-nowrap">
             <Col xs="4">
               <h6 className="text-nowrap">
-                #{entry.dexNum.toString().padStart(3, '0')}
+                #
+                {regionalNum?.toString().padStart(3, '0') ??
+                  entry.dexNum.toString().padStart(3, '0')}
               </h6>
             </Col>
             <Col className="ps-1">
