@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node build/server.js",
     "server": "nodemon --files server/server.ts",
-    "build": "tsc"
+    "build": "npx tsc",
+    "postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client && npm prune --prefix client"
   },
   "author": "Akshay Jhanji",
   "license": "MIT",
