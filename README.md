@@ -4,7 +4,7 @@ A full-stack MERN web application developed with React, TypeScript, and ExpressJ
 
 Track your capture progress for 493 species in the Kanto, Johto, Hoenn, and Sinnoh regional Pokédexes and the National Dex.
 
-**Try it out [here](https://pokedex.cyclic.app/)**!
+**Try it out [here](https://pokedex-54ji.onrender.com/)**!
 
 
 ## Acknowledgments

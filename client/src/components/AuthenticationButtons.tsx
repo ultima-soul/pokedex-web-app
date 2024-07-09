@@ -11,7 +11,7 @@ const AuthenticationButton = () => {
   ) : (
     <>
       <LogInButton />
-      <SignUpButton />;
+      <SignUpButton />
     </>
   );
 };
